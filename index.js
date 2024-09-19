@@ -48,17 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function saveData() {
-        const users = [];
-        for (let i = 0; i < userTable.rows.length; i++) {
-            const cells = userTable.rows[i].cells;
-            users.push({
-                name: cells[0].innerText,
-                email: cells[1].innerText,
-                password: cells[2].innerText,
-                dob: cells[3].innerText,
-                terms: cells[4].innerText === 'Yes'
-            });
-        }
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const newUser = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            dob: document.getElementById('dob').value,
+            terms: document.getElementById('terms').checked
+        };
+        users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
     }
 
